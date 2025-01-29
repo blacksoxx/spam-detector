@@ -1,0 +1,11 @@
+# Base Python image
+FROM python:3.9
+
+# Set working directory
+WORKDIR /app
+
+# Copy application script into the container
+COPY application.py .
+EXPOSE 9090
+# Set the script to run
+CMD ["python", "application.py"]

@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  application:
+    build:
+      context: .
+      dockerfile: dockerfile_application
+    container_name: application
+    networks:
+      - my_network
+    ports:
+      - "9090:9090"  # Expose application port to host
+
+  firewall:
+    build:
+      context: .
+      dockerfile: dockerfile_firewall
+    container_name: firewall
+    networks:
+      - my_network
+    ports:
+      - "8888:8888"  # Expose firewall port to host
+    depends_on:
+      - application  # Ensure application   starts first
+
+  sender:
+    build:
+      context: .
+      dockerfile: dockerfile_sender
+    container_name: sender
+    networks:
+      - my_network
+    depends_on:
+      - firewall  # Ensure firewall starts before client
+
+networks:
+  my_network:
+    driver: bridge

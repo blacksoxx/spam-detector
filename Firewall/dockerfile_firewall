@@ -1,0 +1,16 @@
+# Base Python image
+FROM python:3.9
+
+# Set working directory
+WORKDIR /app
+
+# Copy firewall script and ML model
+COPY firewall.py .
+COPY model.pkl .
+EXPOSE 8888
+# Install required libraries (e.g., scikit-learn)
+RUN pip install scikit-learn nltk 
+
+RUN python -m nltk.downloader stopwords punkt
+# Set the script to run
+CMD ["python", "firewall.py"]

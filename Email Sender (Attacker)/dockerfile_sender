@@ -1,0 +1,14 @@
+# Base Python image
+FROM python:3.9
+
+# Set working directory
+WORKDIR /app
+
+# Copy client script into the container
+COPY sender.py .
+
+# Install any Python libraries (if needed)
+# Example: RUN pip install requests
+
+# Set the script to run
+CMD ["python", "sender.py"]
